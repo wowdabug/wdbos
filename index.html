@@ -6,10 +6,16 @@
             body {
                 margin: 0;
                 padding: 0;
+                width: 100vw;
+                height: 100vh;
                 overflow: hidden;
+                background-image: url("assets/mountain.png");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
             }
             .taskbar-container {
-                background: darkgray;
+                background: gray;
                 margin: 8px;
                 height: 32px;
                 border-radius: 4px;
@@ -18,17 +24,16 @@
                 left: 0px;
                 right: 0px;
                 display: flex;
-                gap: 4px;
             }
             .taskbar-item {
-                width: fit-content;
-                aspect-ratio: 1/1;
-                border-radius: 4px;
-                padding: 2px;
-                align-items: center;
+                width: 32px;
+                background-image: url("assets/system.png");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: 32px;
             }
             .taskbar-item:hover {
-                background: gray;
+                background-color: darkgray;
             }
             .taskbar-item svg {
                 width: 24px;
@@ -55,14 +60,14 @@
             .window-controls-item {
                 width: fit-content;
                 align-items: center;
+                width: 16px;
                 background-image: url("assets/close.png");
                 background-size: 16px;
-                width: 16px;
                 background-repeat: no-repeat;
                 background-position: center;
             }
             .window-controls-item:hover {
-                background: darkgray;
+                background-color: darkgray;
             }
             .window-frame {
                 overflow: hidden;
@@ -79,21 +84,15 @@
     </head>
     <body>
         <div class="taskbar-container">
-            <div class="taskbar-item">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-notebook-pen-icon lucide-notebook-pen"><path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4"/><path d="M2 6h4"/><path d="M2 10h4"/><path d="M2 14h4"/><path d="M2 18h4"/><path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/></svg>
-            </div>
-            <div class="taskbar-item">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass-icon lucide-compass"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/></svg>
-            </div>
+            <div class="taskbar-item"></div>
+            <div class="taskbar-item"></div>
+            <div class="taskbar-item"></div>
         </div>
         <div class="window-container">
             <div class="window-controls-container">
-                <div class="window-controls-item">
-                </div>
-                <div class="window-controls-item">
-                </div>
-                <div class="window-controls-item">
-                </div>
+                <div class="window-controls-item"></div>
+                <div class="window-controls-item"></div>
+                <div class="window-controls-item"></div>
             </div>
             <div class="window-frame">
                 <iframe src="https://www.example.com"></iframe>
