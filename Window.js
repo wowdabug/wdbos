@@ -13,6 +13,8 @@ export class Window {
     maximized = false;
     minimized = false;
     mouseDown = false;
+    clientX = 0;
+    clientY = 0;
 
     constructor(url) {
         this.url = url;
@@ -39,6 +41,8 @@ export class Window {
         });
 
         this.windowContainer.addEventListener("mousemove", (event) => {
+            this.clientX = event.clientX;
+            this.clientY = event.clientY;
             if (this.mouseDown) {
                 this.positionX += event.movementX;
                 this.positionY += event.movementY;
@@ -52,38 +56,26 @@ export class Window {
         controlsContainer.className = 'window-controls-container';
 
         const controls = [];
+        const assetUrls = ["assets/minimize.png", "assets/maximize.png", "assets/minimize.png"]
         for (let i = 0; i < 3; ++i) {
             controls[i] = document.createElement('div');
             controls[i].className = 'window-controls-item';
-
-            let icon;
-            switch (i) {
-                case 0:
-                    icon = "minimize";
-                    break;
-                case 1:
-                    icon = "maximize";
-                    break;
-                case 2:
-                    icon = "close";
-                    break;
-            }
-
-            controls[i].style.backgroundImage = "url('assets/" + icon + ".png')";
+            controls[i].style.backgroundImage = `url("${assetUrls[i]}")`;
             controlsContainer.appendChild(controls[i]);
+            controls[i].addEventListener("click", () => {
+                switch (i) {
+                    case 0:
+                        this.minimize();
+                        break;
+                    case 1:
+                        this.maximize();
+                        break;
+                    case 2:
+                        this.close();
+                        break;
+                }
+            });
         }
-
-        controls[0].addEventListener("click", () => {
-            this.minimize();
-        });
-
-        controls[1].addEventListener("click", () => {
-            this.maximize();
-        });
-
-        controls[2].addEventListener("click", () => {
-            this.close();
-        });
 
         const windowFrame = document.createElement('div');
         windowFrame.className = 'window-frame';
@@ -120,6 +112,8 @@ export class Window {
 
     unmaximize() {
         this.maximized = false;
+        this.positionX = this.clientX - this.clientX / window.innerWidth * this.prevSizeX;
+        this.positionY = 0;
         this.sizeX = this.prevSizeX;
         this.sizeY = this.prevSizeY;
     }
