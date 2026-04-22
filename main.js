@@ -1,7 +1,9 @@
+import { Application } from "./Application.js";
 import { Taskbar } from "./Taskbar.js";
 import { Window } from "./Window.js";
 
 export const g_global = {
+    applications: [],
     taskbar: new Taskbar(),
     windows: [],
     zIndex: 0,
@@ -16,15 +18,13 @@ document.addEventListener("mouseup", () => {
     g_global.g_mouseDown = false;
 });
 
-const g_windows = [];
+g_global.windows[0] = new Window("https://example.com/");
+g_global.windows[0].positionX = 50;
+g_global.windows[0].update();
 
-const g_taskbar = new Taskbar();
+g_global.windows[1] = new Window("https://www.wikipedia.org/");
+g_global.windows[1].positionX = 128;
+g_global.windows[1].positionY = 128;
+g_global.windows[1].update();
 
-g_windows[0] = new Window("https://example.com/");
-g_windows[0].positionX = 50;
-g_windows[0].update();
-
-g_windows[1] = new Window("https://www.wikipedia.org/");
-g_windows[1].positionX = 128;
-g_windows[1].positionY = 128;
-g_windows[1].update();
+new Application("wikipedia", "https://www.wikipedia.org/");

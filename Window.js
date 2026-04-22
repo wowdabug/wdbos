@@ -56,7 +56,7 @@ export class Window {
         controlsContainer.className = 'window-controls-container';
 
         const controls = [];
-        const assetUrls = ["assets/minimize.png", "assets/maximize.png", "assets/minimize.png"]
+        const assetUrls = ["assets/minimize.png", "assets/maximize.png", "assets/close.png"]
         for (let i = 0; i < 3; ++i) {
             controls[i] = document.createElement('div');
             controls[i].className = 'window-controls-item';
