@@ -18,13 +18,5 @@ document.addEventListener("mouseup", () => {
     g_global.g_mouseDown = false;
 });
 
-g_global.windows[0] = new Window("https://example.com/");
-g_global.windows[0].positionX = 50;
-g_global.windows[0].update();
-
-g_global.windows[1] = new Window("https://www.wikipedia.org/");
-g_global.windows[1].positionX = 128;
-g_global.windows[1].positionY = 128;
-g_global.windows[1].update();
-
-new Application("wikipedia", "https://www.wikipedia.org/");
+new Application("Wikipedia", "https://www.wikipedia.org/");
+new Application("WDB Games", "https://semgabdw.github.io/");

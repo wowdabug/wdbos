@@ -12,29 +12,6 @@ export class Taskbar {
     createTaskbar() {
         this.taskbar = document.createElement("div");
         this.taskbar.className = "taskbar-container";
-
-        const items = [];
-        for (let i = 0; i < 3; ++i) {
-            items[i] = document.createElement('div');
-            items[i].className = 'taskbar-item';
-
-            let icon;
-            switch (i) {
-                case 0:
-                    icon = "system";
-                    break;
-                case 1:
-                    icon = "notepad";
-                    break;
-                case 2:
-                    icon = "notepad";
-                    break;
-            }
-
-            items[i].style.backgroundImage = "url('assets/" + icon + ".png')";
-            this.taskbar.appendChild(items[i]);
-        }
-
         document.body.appendChild(this.taskbar);
     }
 
@@ -42,9 +19,10 @@ export class Taskbar {
         const i = this.taskbarItems.length;
         this.taskbarItems[i] = document.createElement('div');
         this.taskbarItems[i].className = 'taskbar-item';
-        this.taskbarItems[i].style.backgroundImage = "url('assets/" + name + ".png')";
+        // this.taskbarItems[i].style.backgroundImage = "url('assets/" + name + ".png')";
+        this.taskbarItems[i].style.backgroundImage = "url('" + url + "favicon.ico')";
         this.taskbarItems[i].addEventListener("click", () => {
-            g_global.windows.push(new Window("https://www.wikipedia.org/"));
+            g_global.windows.push(new Window(url));
         });
         
         this.taskbar.appendChild(this.taskbarItems[i]);

@@ -60,7 +60,7 @@ export class Window {
         for (let i = 0; i < 3; ++i) {
             controls[i] = document.createElement('div');
             controls[i].className = 'window-controls-item';
-            controls[i].style.backgroundImage = `url("${assetUrls[i]}")`;
+            controls[i].style.backgroundImage = "url('"+ assetUrls[i] + "')";
             controlsContainer.appendChild(controls[i]);
             controls[i].addEventListener("click", () => {
                 switch (i) {
