@@ -1,32 +1,49 @@
 class Window {
-    windowContainer;
-    positionX;
-    positionY;
-    sizeX;
-    sizeY;
     url;
+    windowContainer;
+    zIndex = 0;
+    positionX = 0;
+    positionY = 0
+    sizeX = 512;
+    sizeY = 512
+    mouseDown = false;
 
     constructor(url) {
         this.url = url;
-        this.positionX = 0;
-        this.positionY = 0;
-        this.sizeX = 512;
-        this.sizeY = 512;
         this.createWindow();
     }
 
     createWindow() {
         this.windowContainer = document.createElement('div');
         this.windowContainer.className = 'window-container';
+
+        this.windowContainer.addEventListener("mousedown", () => {
+            this.mouseDown = true;
+            this.zIndex = ++g_zIndex;
+            this.update();
+        });
+
+        this.windowContainer.addEventListener("mouseup", () => {
+            this.mouseDown = false;
+        });
+
+        this.windowContainer.addEventListener("mousemove", (event) => {
+            if (this.mouseDown) {
+                this.positionX += event.movementX;
+                this.positionY += event.movementY;
+                this.update();
+            }
+        });
         
         this.update();
 
         const controlsContainer = document.createElement('div');
         controlsContainer.className = 'window-controls-container';
 
+        const controls = [];
         for (let i = 0; i < 3; ++i) {
-            const control = document.createElement('div');
-            control.className = 'window-controls-item';
+            controls[i] = document.createElement('div');
+            controls[i].className = 'window-controls-item';
 
             let icon;
             switch (i) {
@@ -41,9 +58,13 @@ class Window {
                     break;
             }
 
-            control.style.backgroundImage = "url('assets/" + icon + ".png')";
-            controlsContainer.appendChild(control);
+            controls[i].style.backgroundImage = "url('assets/" + icon + ".png')";
+            controlsContainer.appendChild(controls[i]);
         }
+
+        controls[2].addEventListener("click", () => {
+            this.close();
+        });
 
         const windowFrame = document.createElement('div');
         windowFrame.className = 'window-frame';
@@ -57,7 +78,12 @@ class Window {
         document.body.appendChild(this.windowContainer);
     }
 
+    close() {
+        this.windowContainer.remove();
+    }
+
     update() {
+        this.windowContainer.style.zIndex = this.zIndex;
         this.windowContainer.style.left = this.positionX + "px";
         this.windowContainer.style.top = this.positionY + "px";
         this.windowContainer.style.width = this.sizeX + "px";
@@ -65,14 +91,60 @@ class Window {
     }
 }
 
+class Taskbar {
+    constructor() {
+        this.createTaskbar();
+    }
 
-const windows = [];
+    createTaskbar() {
+        const taskbar = document.createElement("div");
+        taskbar.className = "taskbar-container";
 
-windows[0] = new Window("https://example.com/");
-windows[0].positionX = 50;
-windows[0].update();
+        const items = [];
+        for (let i = 0; i < 3; ++i) {
+            items[i] = document.createElement('div');
+            items[i].className = 'taskbar-item';
 
-windows[1] = new Window("https://example.com/");
-windows[1].positionX = 128;
-windows[1].positionY = 128;
-windows[1].update();
+            let icon;
+            switch (i) {
+                case 0:
+                    icon = "system";
+                    break;
+                case 1:
+                    icon = "notepad";
+                    break;
+                case 2:
+                    icon = "notepad";
+                    break;
+            }
+
+            items[i].style.backgroundImage = "url('assets/" + icon + ".png')";
+            taskbar.appendChild(items[i]);
+        }
+
+        document.body.appendChild(taskbar);
+    }
+}
+
+document.addEventListener("mousedown", () => {
+    g_mouseDown = true;
+});
+
+document.addEventListener("mouseup", () => {
+    g_mouseDown = false;
+});
+
+let g_zIndex = 0;
+let g_mouseDown = false;
+const g_windows = [];
+
+const g_taskbar = new Taskbar();
+
+g_windows[0] = new Window("https://example.com/");
+g_windows[0].positionX = 50;
+g_windows[0].update();
+
+g_windows[1] = new Window("https://www.wikipedia.org/");
+g_windows[1].positionX = 128;
+g_windows[1].positionY = 128;
+g_windows[1].update();
