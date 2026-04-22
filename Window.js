@@ -8,8 +8,6 @@ export class Window {
     positionY = 0;
     sizeX = 512;
     sizeY = 512;
-    prevPositionX = 0;
-    prevPositionY = 0;
     prevSizeX = 512;
     prevSizeY = 512;
     maximized = false;
@@ -111,8 +109,6 @@ export class Window {
 
     maximize() {
         this.maximized = true;
-        this.prevPositionX = this.positionX;
-        this.prevPositionY = this.positionY;
         this.prevSizeX = this.sizeX;
         this.prevSizeY = this.sizeY;
         this.positionX = 0;
@@ -124,8 +120,6 @@ export class Window {
 
     unmaximize() {
         this.maximized = false;
-        this.positionX = this.prevPositionX;
-        this.positionY = this.prevPositionY;
         this.sizeX = this.prevSizeX;
         this.sizeY = this.prevSizeY;
     }
