@@ -1,5 +1,5 @@
-import { Taskbar } from "/Taskbar.js";
-import { Window } from "/Window.js";
+import { Taskbar } from "./Taskbar.js";
+import { Window } from "./Window.js";
 
 export const g_global = {
     taskbar: new Taskbar(),

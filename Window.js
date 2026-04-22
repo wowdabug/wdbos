@@ -1,4 +1,4 @@
-import { g_global } from "/main.js";
+import { g_global } from "./main.js";
 
 export class Window {
     url;
