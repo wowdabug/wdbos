@@ -3,9 +3,15 @@ class Window {
     windowContainer;
     zIndex = 0;
     positionX = 0;
-    positionY = 0
+    positionY = 0;
     sizeX = 512;
-    sizeY = 512
+    sizeY = 512;
+    prevPositionX = 0;
+    prevPositionY = 0;
+    prevSizeX = 512;
+    prevSizeY = 512;
+    maximized = false;
+    minimized = false;
     mouseDown = false;
 
     constructor(url) {
@@ -20,6 +26,11 @@ class Window {
         this.windowContainer.addEventListener("mousedown", () => {
             this.mouseDown = true;
             this.zIndex = ++g_zIndex;
+            g_taskbar.taskbar.style.zIndex = this.zIndex + 1;
+            if (this.maximized) {
+                this.unmaximize();
+            }
+
             this.update();
         });
 
@@ -62,6 +73,14 @@ class Window {
             controlsContainer.appendChild(controls[i]);
         }
 
+        controls[0].addEventListener("click", () => {
+            this.minimize();
+        });
+
+        controls[1].addEventListener("click", () => {
+            this.maximize();
+        });
+
         controls[2].addEventListener("click", () => {
             this.close();
         });
@@ -78,6 +97,37 @@ class Window {
         document.body.appendChild(this.windowContainer);
     }
 
+    minimize() {
+        this.minimized = true;
+        this.windowContainer.hidden = true;
+    }
+
+    unminimize() {
+        this.minimized = false;
+        this.windowContainer.hidden = false;
+    }
+
+    maximize() {
+        this.maximized = true;
+        this.prevPositionX = this.positionX;
+        this.prevPositionY = this.positionY;
+        this.prevSizeX = this.sizeX;
+        this.prevSizeY = this.sizeY;
+        this.positionX = 0;
+        this.positionY = 0;
+        this.sizeX = window.innerWidth;
+        this.sizeY = window.innerHeight;
+        this.update();
+    }
+
+    unmaximize() {
+        this.maximized = false;
+        this.positionX = this.prevPositionX;
+        this.positionY = this.prevPositionY;
+        this.sizeX = this.prevSizeX;
+        this.sizeY = this.prevSizeY;
+    }
+
     close() {
         this.windowContainer.remove();
     }
@@ -92,13 +142,15 @@ class Window {
 }
 
 class Taskbar {
+    taskbar;
+
     constructor() {
         this.createTaskbar();
     }
 
     createTaskbar() {
-        const taskbar = document.createElement("div");
-        taskbar.className = "taskbar-container";
+        this.taskbar = document.createElement("div");
+        this.taskbar.className = "taskbar-container";
 
         const items = [];
         for (let i = 0; i < 3; ++i) {
@@ -119,10 +171,10 @@ class Taskbar {
             }
 
             items[i].style.backgroundImage = "url('assets/" + icon + ".png')";
-            taskbar.appendChild(items[i]);
+            this.taskbar.appendChild(items[i]);
         }
 
-        document.body.appendChild(taskbar);
+        document.body.appendChild(this.taskbar);
     }
 }
 
